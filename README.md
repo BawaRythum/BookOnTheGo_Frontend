@@ -1,12 +1,50 @@
-# React + Vite
+# React Frontend for Event Booking System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the Event Booking System built using React (Vite). It includes user authentication (login & register), Home page showing all the events, user dashboard and payments page and communicates with the Node.js backend API.
 
-Currently, two official plugins are available:
+## Current Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+User Authentication (Login & Register)
 
-## Expanding the ESLint configuration
+JWT Token Storage in localStorage
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Form Validation (Email format, password length, etc.)
+
+React Router for Navigation
+
+Tailwind CSS for Modern Styling
+
+Axios for API Requests
+
+## Current Project Structure
+
+|backend
+│── src/
+│   ├── components/
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── index.css
+│── public/
+│── package.json
+│── tailwind.config.js
+│── vite.config.js
+│── README.md
+
+
+## Tech Stack
+
+Frontend: React (Vite)
+
+Styling: Tailwind CSS
+
+State Management: useState
+
+Routing: React Router
+
+API Requests: Axios
+
+## Contribution
+
+Developed by Rythum Bawa
