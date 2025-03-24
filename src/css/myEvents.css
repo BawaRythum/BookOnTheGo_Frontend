@@ -1,0 +1,45 @@
+.myevents-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 30px;
+  }
+  
+  .event-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .event-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .event-card h2 {
+    margin-bottom: 10px;
+  }
+  
+  .center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .center-button button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
