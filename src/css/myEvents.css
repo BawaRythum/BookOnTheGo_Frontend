@@ -58,15 +58,34 @@ body {
   margin: 4px 0;
 }
 
+.button-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.update-btn,
 .delete-btn {
-  margin-top: 12px;
   padding: 10px 16px;
-  background-color: #dc3545;
-  color: white;
-  border: none;
   font-size: 14px;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.update-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.update-btn:hover {
+  background-color: #005ecb;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
 }
 
 .delete-btn:hover {

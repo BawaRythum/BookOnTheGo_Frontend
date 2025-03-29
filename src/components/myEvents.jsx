@@ -90,6 +90,9 @@ export default function MyEvents() {
               <p><strong>Description:</strong> {event.eventDetails}</p>
               <p><strong>Tickets:</strong> {event.noOfTickets} / {event.totalSeats}</p>
               <p><strong>Price:</strong> ${event.price}</p>
+              <button  className="update-btn" onClick={() => navigate(`/update/${event.id}`, { state: event })}>
+                Update
+              </button>
               <button className="delete-btn" onClick={() => handleDelete(event.id)}>
                 Delete
               </button>

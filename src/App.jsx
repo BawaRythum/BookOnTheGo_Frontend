@@ -6,6 +6,7 @@ import MyEvents from "./components/myEvents";
 import CreateEvent from "./components/createEvents";
 import Home from "./components/home";
 import Details from "./components/eventDetails";
+import Update from "./components/updateForm";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/create" element={<CreateEvent />} />
         <Route path="/home" element={<Home />} />
         <Route path="/details/:id" element={<Details />} />
+        <Route path="/update/:id" element={<Update />} />
       </Routes>
     </Router>
   );
