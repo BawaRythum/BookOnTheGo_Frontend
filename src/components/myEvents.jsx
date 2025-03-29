@@ -1,45 +1,49 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/navbar"; 
-// import axios from "axios";
-import "../css/MyEvents.css";
+import axios from "axios"; // ✅ Make sure axios is installed
+import "./MyEvents.css";
 
 export default function MyEvents() {
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setEvents([
-      {
-        id: "evt1",
-        name: "Tech Conference 2025",
-        eventDetails: "Tech, AI and startup showcase.",
-        "date-time": "2025-06-15T10:00",
-        noOfTickets: 80,
-        totalSeats: 100,
-        price: 999,
-        images: "https://via.placeholder.com/600x300"
+    const token = localStorage.getItem("token");
+
+    // Fetch my events from API
+    axios.get("http://localhost:5000/api/events/my", {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      {
-        id: "evt2",
-        name: "Comedy Night",
-        eventDetails: "Live stand-up comedy night.",
-        "date-time": "2025-07-01T19:30",
-        noOfTickets: 50,
-        totalSeats: 100,
-        price: 399,
-        images: "https://via.placeholder.com/600x300"
-      }
-    ]);
+    })
+      .then((res) => setEvents(res.data))
+      .catch((err) => {
+        console.error("Failed to load events:", err);
+        // Optionally redirect to login
+      });
   }, []);
 
-  const handleDelete = (id) => {
-    setEvents(events.filter((e) => e.id !== id));
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      await axios.delete(`http://localhost:5000/api/events/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Remove from local state
+      setEvents(events.filter((e) => e.id !== id));
+      console.log("Event deleted:", id);
+    } catch (err) {
+      console.error("Delete failed:", err.response?.data || err.message);
+      alert("Failed to delete event.");
+    }
   };
 
   return (
     <div className="myevents-container">
-      <Navbar />
       <h1>My Events</h1>
 
       <div className="event-list">
@@ -51,7 +55,7 @@ export default function MyEvents() {
               <p><strong>Date & Time:</strong> {new Date(event["date-time"]).toLocaleString()}</p>
               <p><strong>Description:</strong> {event.eventDetails}</p>
               <p><strong>Tickets:</strong> {event.noOfTickets} / {event.totalSeats}</p>
-              <p><strong>Price:</strong> ${event.price}</p>
+              <p><strong>Price:</strong> ₹{event.price}</p>
               <button className="delete-btn" onClick={() => handleDelete(event.id)}>
                 Delete
               </button>
@@ -61,7 +65,7 @@ export default function MyEvents() {
       </div>
 
       <div className="center-button">
-        <button onClick={() => navigate("/create")}>Add New Event</button>
+        <button onClick={() => navigate("/create-event")}>Add New Event</button>
       </div>
     </div>
   );
