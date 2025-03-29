@@ -1,65 +1,79 @@
-.payment-page {
-  background-color: #0a71d8;
+.app {
   min-height: 100vh;
-  padding: 40px 20px;
-}
-
-.payment-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 30px;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #ffffff;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-}
-
-.payment-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #02080e;
-}
-
-.payment-summary p {
-  font-size: 15px;
-  color: #444;
-  margin: 6px 0;
-}
-
-.payment-form {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  background: #0a539c;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.payment-form input {
-  padding: 12px;
-  font-size: 15px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.stripe-container {
+  width: 100%;
+  max-width: 450px;
   background-color: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+  border: 1px solid #eee;
 }
 
-.payment-form button {
+.stripe-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.stripe-container p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+.card-element {
   padding: 12px;
-  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.payment-button {
+  width: 100%;
+  padding: 12px;
   background-color: #28a745;
   color: white;
+  font-size: 15px;
+  font-weight: bold;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.payment-form button:hover {
+.payment-button:hover {
   background-color: #218838;
 }
 
-.payment-loading {
+.success {
+  margin-top: 15px;
+  color: #28a745;
+  font-weight: 500;
   text-align: center;
-  margin-top: 60px;
-  font-size: 18px;
-  color: #777;
+}
+
+.error {
+  margin-top: 15px;
+  color: #dc3545;
+  font-weight: 500;
+  text-align: center;
 }

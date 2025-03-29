@@ -1,60 +1,91 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import {initializeStripe, mountCardElement, createPaymentMethod} from "../utils/stripe";
 import "../css/payment.css";
 
-export default function Payment() {
-  const navigate = useNavigate();
+export default function PaymentForm() {
   const { state } = useLocation();
+  const { name, ticketCount, totalAmount } = state || {};
 
-  const [paymentInfo, setPaymentInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [error, setError] = useState(null);
+  const cardElementRef = useRef(null);
 
   useEffect(() => {
-    // Save payment info to state to persist on refresh
-    if (state) {
-      setPaymentInfo(state);
-      localStorage.setItem("paymentDetails", JSON.stringify(state));
-    } else {
-      const stored = localStorage.getItem("paymentDetails");
-      if (stored) setPaymentInfo(JSON.parse(stored));
-    }
-  }, [state]);
+    const init = async () => {
+      try {
+        await initializeStripe(import.meta.env.VITE_STRIPE_PK);
+        cardElementRef.current = await mountCardElement("card-element", (event) => {
+          setError(event.error?.message || null);
+        });
+      } catch (err) {
+        setError("Failed to load payment form");
+      }
+    };
 
-  const handleSubmit = (e) => {
+    init();
+
+    return () => {
+      if (cardElementRef.current) {
+        cardElementRef.current.unmount();
+      }
+    };
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
-    console.log("Payment successful:", paymentInfo);
+    try {
+      const paymentMethodId = await createPaymentMethod(cardElementRef.current);
+      console.log("Stripe PaymentMethod ID:", paymentMethodId);
 
-    // Clear stored payment info
-    localStorage.removeItem("paymentDetails");
+      const response = await fetch("http://localhost:8080/api/payment/process", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: totalAmount,
+          paymentMethodId,
+        }),
+      });
 
-    // Redirect or show success
-    alert("Payment successful!");
-    navigate("/home");
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.error || "Payment failed");
+      console.log("Payment success:", data);
+
+      setPaymentSuccess(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  if (!paymentInfo) return <p className="payment-loading">Loading...</p>;
-
   return (
-    <div className="payment-page">
-      <div className="payment-container">
-        <h2>Payment</h2>
+    <div className="app">
+      <div className="stripe-container">
+        <h1>Payment</h1>
 
-        <div className="payment-summary">
-          <p><strong>Event:</strong> {paymentInfo.name}</p>
-          <p><strong>Tickets:</strong> {paymentInfo.ticketCount}</p>
-          <p><strong>Price per ticket:</strong> ${paymentInfo.pricePerTicket}</p>
-          <p><strong>Total Amount:</strong> ${paymentInfo.totalAmount}</p>
-        </div>
+        <p><strong>Event:</strong> {name}</p>
+        <p><strong>Tickets:</strong> {ticketCount}</p>
+        <p><strong>Total:</strong> ₹{totalAmount}</p>
 
-        <form className="payment-form" onSubmit={handleSubmit}>
-          <input type="text" placeholder="Card Number" required />
-          <input type="text" placeholder="Expiry Date (MM/YY)" required />
-          <input type="text" placeholder="CVV" required />
-          <input type="text" placeholder="Name" required />
-          <input type="text" placeholder="Pincode (e.g. B3H 4R2)" required />
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="card-element">Card details</label>
+            <div id="card-element" className="card-element"></div>
+          </div>
 
-          <button type="submit">Pay ${paymentInfo.totalAmount}</button>
+          <button type="submit" disabled={isLoading} className="payment-button">
+            {isLoading ? "Processing..." : `Pay $${totalAmount}`}
+          </button>
         </form>
+
+        {paymentSuccess && <div className="success">Payment succeeded!</div>}
+        {error && <div className="error">{error}</div>}
       </div>
     </div>
   );

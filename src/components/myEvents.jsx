@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/navbar"; 
 import axios from "axios"; 
 import "../css/myEvents.css";
 
@@ -75,6 +76,8 @@ export default function MyEvents() {
 
   return (
     <div className="myevents-container">
+      <Navbar />
+
       <h1>My Events</h1>
 
       <div className="event-list">
