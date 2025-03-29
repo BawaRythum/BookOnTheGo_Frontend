@@ -7,6 +7,7 @@ import CreateEvent from "./components/createEvents";
 import Home from "./components/home";
 import Details from "./components/eventDetails";
 import Update from "./components/updateForm";
+import OTPVerification from "./components/otpVerification";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/update/:id" element={<Update />} />
+        <Route path="/otp-verification" element={<OTPVerification />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
