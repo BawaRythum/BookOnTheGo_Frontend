@@ -5,6 +5,7 @@ import Payment from "./components/payment";
 import MyEvents from "./components/myEvents";
 import CreateEvent from "./components/createEvents";
 import Home from "./components/home";
+import Details from "./components/eventDetails";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/myEvents" element={<MyEvents />} />
         <Route path="/create" element={<CreateEvent />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/details/:id" element={<Details />} />
       </Routes>
     </Router>
   );

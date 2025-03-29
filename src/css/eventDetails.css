@@ -1,0 +1,93 @@
+.event-details {
+    background-color: #0a539c;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  
+  .event-details__card {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .event-details__image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .event-details__info {
+    padding: 30px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .event-details__title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #000000;
+    text-align: center;
+  }
+  
+  .event-details__text {
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #444;
+  }
+  
+  .event-details__label {
+    display: block;
+    margin-top: 20px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .event-details__input {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .event-details__button {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .event-details__button:hover {
+    background-color: #218838;
+  }
+  
+  .event-details-loading {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 18px;
+    color: #777;
+  }
+  
+  @media (max-width: 768px) {
+    .event-details__card {
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  
+    .event-details__info {
+      padding: 20px;
+    }
+  }

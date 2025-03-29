@@ -1,35 +1,58 @@
+body {
+  background-color: #f7f9fb;
+  margin: 0;
+  padding: 0;
+}
+
 .createevent-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 40px 20px;
-    font-family: sans-serif;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #28a745;
-    margin-bottom: 30px;
-  }
-  
-  .createevent-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .createevent-form input {
-    padding: 12px;
-    font-size: 15px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
-  
-  .createevent-form button {
-    padding: 12px;
-    font-size: 16px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.createevent-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  color: #000000;
+}
+
+.createevent-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.createevent-form input,
+.createevent-form textarea {
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.createevent-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.createevent-form button {
+  padding: 12px;
+  font-size: 16px;
+  background-color: #000102;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.createevent-form button:hover {
+  background-color: #005ecb;
+}

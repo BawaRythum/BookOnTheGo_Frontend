@@ -1,77 +1,92 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import axios from "axios";
+import Navbar from "../components/navbar"; 
 import "../css/home.css";
-import Navbar from "./navbar";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Uncomment this when your API is ready
-    /*
-    axios.get("http://localhost:5000/api/events")
-      .then((res) => setEvents(res.data))
-      .catch((err) => console.error("Error fetching events:", err));
-    */
-
-    // Temporary hardcoded data
     setEvents([
       {
-        id: 1,
+        id: "evt1",
         name: "Tech Conference 2025",
-        location: "New York",
-        date: "2025-06-15",
-        price: 129.99,
+        eventDetails: "A full-day event on tech, AI and startups.",
+        "date-time": "2025-06-15T10:00",
+        noOfTickets: 80,
+        totalSeats: 100,
+        price: 999,
+        images: "https://via.placeholder.com/400x200"
       },
       {
-        id: 2,
-        name: "Live Music Festival",
-        location: "Los Angeles",
-        date: "2025-07-22",
-        price: 89.5,
+        id: "evt2",
+        name: "Music Night",
+        eventDetails: "Live music with top bands.",
+        "date-time": "2025-07-01T19:00",
+        noOfTickets: 40,
+        totalSeats: 100,
+        price: 499,
+        images: "https://via.placeholder.com/400x200"
       },
       {
-        id: 3,
-        name: "Startup Meetup",
-        location: "San Francisco",
-        date: "2025-08-10",
-        price: 49.99,
+        id: "evt2",
+        name: "Music Night",
+        eventDetails: "Live music with top bands.",
+        "date-time": "2025-07-01T19:00",
+        noOfTickets: 40,
+        totalSeats: 100,
+        price: 499,
+        images: "https://via.placeholder.com/400x200"
       },
+      {
+        id: "evt2",
+        name: "Music Night",
+        eventDetails: "Live music with top bands.",
+        "date-time": "2025-07-01T19:00",
+        noOfTickets: 40,
+        totalSeats: 100,
+        price: 499,
+        images: "https://via.placeholder.com/400x200"
+      }
     ]);
   }, []);
 
-  const filteredEvents = events.filter((event) =>
+  const filteredEvents = events.filter(event =>
     event.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div className="home-container">
-        <Navbar />
-      <h1>Explore Events</h1>
+      <Navbar />
+
+      <h1>All Events</h1>
 
       <input
         type="text"
         placeholder="Search events..."
+        className="search-bar"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="search-bar"
       />
 
       <div className="home-events">
-        {filteredEvents.length === 0 ? (
-          <p className="no-events">No events found.</p>
-        ) : (
-          filteredEvents.map((event) => (
-            <div key={event.id} className="home-event-card">
+        {filteredEvents.map(event => (
+          <div className="event-card" key={event.id}>
+            <img src={event.images} alt={event.name} />
+            <div className="event-content">
               <h2>{event.name}</h2>
-              <p><strong>📍 Location:</strong> {event.location}</p>
-              <p><strong>📅 Date:</strong> {event.date}</p>
-              <p><strong>💵 Price:</strong> ${event.price.toFixed(2)}</p>
-              <button>Book Now</button>
+              <p><strong>Date & Time:</strong> {new Date(event["date-time"]).toLocaleString()}</p>
+              <p><strong>Tickets Left:</strong> {event.noOfTickets} / {event.totalSeats}</p>
+              <p><strong>Price:</strong> ${event.price}</p>
+              <button onClick={() => navigate(`/details/${event.id}`, { state: event })}>
+                View Details
+              </button>
             </div>
-          ))
-        )}
+          </div>
+        ))}
       </div>
     </div>
   );
