@@ -11,7 +11,6 @@ export default function UpdateEvent() {
     name: event.name,
     eventDetails: event.eventDetails,
     "date-time": event["date-time"],
-    noOfTickets: event.noOfTickets,
     totalSeats: event.totalSeats,
     images: event.images,
   });
