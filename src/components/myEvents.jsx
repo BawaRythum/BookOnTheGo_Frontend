@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // ✅ Make sure axios is installed
+import axios from "axios"; 
 import "./MyEvents.css";
 
 export default function MyEvents() {
@@ -8,9 +8,10 @@ export default function MyEvents() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
-    // Fetch my events from API
+    // API call to get my events (commented)
+    /*
     axios.get("http://localhost:5000/api/events/my", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -19,27 +20,57 @@ export default function MyEvents() {
       .then((res) => setEvents(res.data))
       .catch((err) => {
         console.error("Failed to load events:", err);
-        // Optionally redirect to login
       });
+    */
+
+    // Demo events for testing
+    setEvents([
+      {
+        id: "evt1",
+        name: "Tech Conference 2025",
+        eventDetails: "A full-day event on AI, tech, and startups.",
+        "date-time": "2025-06-15T10:00",
+        noOfTickets: 80,
+        totalSeats: 100,
+        price: 999,
+        images: "https://via.placeholder.com/600x300"
+      },
+      {
+        id: "evt2",
+        name: "Comedy Night",
+        eventDetails: "Live stand-up comedy with top comedians.",
+        "date-time": "2025-07-01T19:30",
+        noOfTickets: 50,
+        totalSeats: 100,
+        price: 399,
+        images: "https://via.placeholder.com/600x300"
+      }
+    ]);
   }, []);
 
-  const handleDelete = async (id) => {
-    const token = localStorage.getItem("token");
+  const handleDelete = (id) => {
+    // const token = localStorage.getItem("token");
 
-    try {
-      await axios.delete(`http://localhost:5000/api/events/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    // API delete call (commented)
+    /*
+    axios.delete(`http://localhost:5000/api/events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(() => {
+        setEvents(events.filter((e) => e.id !== id));
+        console.log("Deleted:", id);
+      })
+      .catch((err) => {
+        console.error("Delete failed:", err);
+        alert("Failed to delete event.");
       });
+    */
 
-      // Remove from local state
-      setEvents(events.filter((e) => e.id !== id));
-      console.log("Event deleted:", id);
-    } catch (err) {
-      console.error("Delete failed:", err.response?.data || err.message);
-      alert("Failed to delete event.");
-    }
+    // Demo: remove from local state
+    setEvents(events.filter((e) => e.id !== id));
+    console.log("Deleted (demo):", id);
   };
 
   return (
@@ -55,7 +86,7 @@ export default function MyEvents() {
               <p><strong>Date & Time:</strong> {new Date(event["date-time"]).toLocaleString()}</p>
               <p><strong>Description:</strong> {event.eventDetails}</p>
               <p><strong>Tickets:</strong> {event.noOfTickets} / {event.totalSeats}</p>
-              <p><strong>Price:</strong> ₹{event.price}</p>
+              <p><strong>Price:</strong> ${event.price}</p>
               <button className="delete-btn" onClick={() => handleDelete(event.id)}>
                 Delete
               </button>
@@ -65,7 +96,7 @@ export default function MyEvents() {
       </div>
 
       <div className="center-button">
-        <button onClick={() => navigate("/create-event")}>Add New Event</button>
+        <button onClick={() => navigate("/create")}>Add New Event</button>
       </div>
     </div>
   );
