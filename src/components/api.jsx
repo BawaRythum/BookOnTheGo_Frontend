@@ -7,14 +7,14 @@ const VITE_EVENT_SERVICE_PORT = import.meta.env.VITE_EVENT_SERVICE_PORT;
 const VITE_PAYMENT_SERVICE_PORT = import.meta.env.VITE_PAYMENT_SERVICE_PORT;
 
 const api = axios.create({
-  baseURL: `http://localhost:${VITE_AUTH_SERVICE_PORT}/api/v1/`,
+  baseURL: `http://localhost:${VITE_AUTH_SERVICE_PORT}/api/v1/auth/`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 const eventApi = axios.create({
-  baseURL: `http://localhost:${VITE_EVENT_SERVICE_PORT}/api/v1/`,
+  baseURL: `http://localhost:${VITE_EVENT_SERVICE_PORT}/api/v1/events/`,
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem('token')}` 
@@ -22,7 +22,7 @@ const eventApi = axios.create({
 });
 
 const paymentApi = axios.create({
-  baseURL: `http://localhost:${VITE_PAYMENT_SERVICE_PORT}/api/v1/`,
+  baseURL: `http://localhost:${VITE_PAYMENT_SERVICE_PORT}/api/payment/`,
   headers: {
     'Content-Type': 'application/json',
   },
