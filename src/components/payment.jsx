@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import {initializeStripe, mountCardElement, createPaymentMethod} from "../utils/stripe";
+import { initializeStripe, mountCardElement, createPaymentMethod } from "../utils/stripe";
+import { processPayment } from "./api"; 
 import "../css/payment.css";
 
 export default function PaymentForm() {
@@ -42,19 +43,17 @@ export default function PaymentForm() {
       const paymentMethodId = await createPaymentMethod(cardElementRef.current);
       console.log("Stripe PaymentMethod ID:", paymentMethodId);
 
-      const response = await fetch("http://localhost:8080/api/payment/process", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: totalAmount,
-          paymentMethodId,
-        }),
-      });
+      // Use the processPayment function from the api.jsx file
+      const paymentData = {
+        amount: totalAmount,
+        paymentMethodId,
+      };
 
-      const data = await response.json();
+      const paymentResponse = await processPayment(paymentData);  // Use dynamic URL
 
-      if (!response.ok) throw new Error(data.error || "Payment failed");
-      console.log("Payment success:", data);
+      if (!paymentResponse.success) throw new Error(paymentResponse.message || "Payment failed");
+
+      console.log("Payment success:", paymentResponse);
 
       setPaymentSuccess(true);
     } catch (err) {
@@ -80,7 +79,7 @@ export default function PaymentForm() {
           </div>
 
           <button type="submit" disabled={isLoading} className="payment-button">
-            {isLoading ? "Processing..." : `Pay $${totalAmount}`}
+            {isLoading ? "Processing..." : `Pay ₹${totalAmount}`}
           </button>
         </form>
 
