@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios"; // Uncomment when backend is ready
+import { createEvent } from "./api";
 import "../css/createEvent.css";
 
 export default function CreateEvent() {
@@ -22,33 +22,16 @@ export default function CreateEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Uncomment this block when backend API is ready:
-    /*
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/events", // 🔁 your actual backend URL
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
-
-      console.log("Created Event:", response.data);
-      navigate("/myevents");
+      const response = await createEvent(formData);
+      console.log("Created Event:", response);
+      navigate("/myevents"); // Navigate to the list of events
     } catch (err) {
       console.error("Event creation failed:", err.response?.data || err.message);
       alert("Failed to create event. Please check your inputs or login again.");
     }
-    */
-
-    // Temporary: Just log and navigate
-    console.log("Created Event (test):", formData);
-    navigate("/myevents");
   };
 
   return (

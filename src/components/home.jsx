@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import { getEventById } from "./api"; 
 import Navbar from "../components/navbar"; 
 import "../css/home.css";
 
@@ -10,48 +10,17 @@ export default function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setEvents([
-      {
-        id: "evt1",
-        name: "Tech Conference 2025",
-        eventDetails: "A full-day event on tech, AI and startups.",
-        "date-time": "2025-06-15T10:00",
-        noOfTickets: 80,
-        totalSeats: 100,
-        price: 999,
-        images: "https://via.placeholder.com/400x200"
-      },
-      {
-        id: "evt2",
-        name: "Music Night",
-        eventDetails: "Live music with top bands.",
-        "date-time": "2025-07-01T19:00",
-        noOfTickets: 40,
-        totalSeats: 100,
-        price: 499,
-        images: "https://via.placeholder.com/400x200"
-      },
-      {
-        id: "evt2",
-        name: "Music Night",
-        eventDetails: "Live music with top bands.",
-        "date-time": "2025-07-01T19:00",
-        noOfTickets: 40,
-        totalSeats: 100,
-        price: 499,
-        images: "https://via.placeholder.com/400x200"
-      },
-      {
-        id: "evt2",
-        name: "Music Night",
-        eventDetails: "Live music with top bands.",
-        "date-time": "2025-07-01T19:00",
-        noOfTickets: 40,
-        totalSeats: 100,
-        price: 499,
-        images: "https://via.placeholder.com/400x200"
+    const fetchEvents = async () => {
+      try {
+        // Fetch events from the backend
+        const response = await getEventById(); 
+        setEvents(response.data);  // backend returns a list of events
+      } catch (error) {
+        console.error("Failed to load events:", error);
       }
-    ]);
+    };
+
+    fetchEvents();
   }, []);
 
   const filteredEvents = events.filter(event =>
