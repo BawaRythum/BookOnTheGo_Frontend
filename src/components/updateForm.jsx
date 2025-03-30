@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 // import axios from "axios";
 import "../css/createEvent.css";
+import { notifyEventUpdated } from "./notificationApi"; 
 
 export default function UpdateEvent() {
   const { state: event } = useLocation();
@@ -13,27 +14,49 @@ export default function UpdateEvent() {
     "date-time": event["date-time"],
     totalSeats: event.totalSeats,
     images: event.images,
+    price: event.price || "",
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // API call to update
-    /*
     const token = localStorage.getItem("token");
-    axios.put(`http://localhost:5000/api/my-events/${event.id}`, formData, {
-      headers: { Authorization: `Bearer ${token}` },
-    }).then(() => navigate("/myevents"));
-    */
 
-    console.log("Updated Event:", formData); // demo
-    navigate("/myevents");
+    try {
+      /*
+      await axios.put(
+        `http://localhost:5000/api/my-events/${event.id}`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      */
+
+      // Prepare event update notification
+      const updatePayload = {
+        eventId: event.id,
+        eventName: formData.name,
+        eventDate: formData["date-time"].split("T")[0],
+        eventTime: formData["date-time"].split("T")[1],
+        venue: "TBD",
+        promoImageUrl: formData.images,
+        userPhone: "+19022409993", 
+      };
+
+      await notifyEventUpdated(updatePayload);
+
+      console.log("Event updated & notification sent:", updatePayload);
+      navigate("/myevents");
+    } catch (err) {
+      console.error("Update failed:", err.response?.data || err.message);
+      alert("Update or notification failed. Try again.");
+    }
   };
-
 
   return (
     <div className="createevent-container">

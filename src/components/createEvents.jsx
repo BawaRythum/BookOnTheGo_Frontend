@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios"; // Uncomment when backend is ready
 import "../css/createEvent.css";
+// import { notifyNewEvent } from "./notificationApi"; 
 
 export default function CreateEvent() {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ export default function CreateEvent() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/events", // 🔁 your actual backend URL
+        "http://localhost:5000/api/events",
         formData,
         {
           headers: {
@@ -38,7 +38,22 @@ export default function CreateEvent() {
         }
       );
 
-      console.log("Created Event:", response.data);
+      const createdEvent = response.data;
+      
+      // ✅ Notify Notification Microservice
+      const notificationPayload = {
+        eventId: createdEvent.id, // use backend event ID
+        eventName: formData.name,
+        eventDate: formData["date-time"].split("T")[0],
+        eventTime: formData["date-time"].split("T")[1],
+        venue: formData.venue || "TBD", // if not present
+        promoImageUrl: formData.images,
+        userPhone: "+1234567890" // optional/test
+      };
+
+      await notifyNewEvent(notificationPayload);
+      console.log("Notification sent:", notificationPayload);
+
       navigate("/myevents");
     } catch (err) {
       console.error("Event creation failed:", err.response?.data || err.message);
