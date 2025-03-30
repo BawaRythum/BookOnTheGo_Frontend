@@ -8,6 +8,7 @@ import Home from "./components/home";
 import Details from "./components/eventDetails";
 import Update from "./components/updateForm";
 import OTPVerification from "./components/otpVerification";
+import UnsubscribePage from "./components/UnsubscribePage"; 
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/update/:id" element={<Update />} />
         <Route path="/otp-verification" element={<OTPVerification />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/unsubscribe" element={<UnsubscribePage />} />
       </Routes>
     </Router>
   );
