@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import axios from "axios";
+import { getEventById } from "./api"; 
 import "../css/eventDetails.css";
 
 export default function EventDetails() {
@@ -10,20 +10,17 @@ export default function EventDetails() {
   const [tickets, setTickets] = useState(1);
 
   useEffect(() => {
-    // axios.get(`http://localhost:5000/api/events/${id}`)
-    //   .then((res) => setEvent(res.data))
-    //   .catch((err) => console.error("Failed to fetch event:", err));
+    async function fetchEvent() {
+      try {
+        const data = await getEventById(id);
+        setEvent(data);
+      } catch (err) {
+        console.error("Failed to fetch event:", err);
+        alert("Error loading event details.");
+      }
+    }
 
-    setEvent({
-      id,
-      name: "Tech Conference 2025",
-      eventDetails: "A full-day event on AI, tech, and startups.",
-      "date-time": "2025-06-15T10:00",
-      noOfTickets: 80,
-      totalSeats: 100,
-      price: 999,
-      images: "https://via.placeholder.com/700x400"
-    });
+    fetchEvent();
   }, [id]);
 
   if (!event) return <p className="event-details-loading">Loading...</p>;
@@ -36,8 +33,9 @@ export default function EventDetails() {
         name: event.name,
         ticketCount: tickets,
         totalAmount,
-        pricePerTicket: event.price
-      }
+        pricePerTicket: event.price,
+        eventId: event.eventId, // for booking&payment
+      },
     });
   };
 
@@ -48,7 +46,7 @@ export default function EventDetails() {
 
         <div className="event-details__info">
           <h1 className="event-details__title">{event.name}</h1>
-          <p className="event-details__text"><strong>Date & Time:</strong> {new Date(event["date-time"]).toLocaleString()}</p>
+          <p className="event-details__text"><strong>Date & Time:</strong> {new Date(event.date).toLocaleString()}</p>
           <p className="event-details__text"><strong>Description:</strong> {event.eventDetails}</p>
           <p className="event-details__text"><strong>Tickets:</strong> {event.noOfTickets} / {event.totalSeats}</p>
           <p className="event-details__text"><strong>Price per Ticket:</strong> ${event.price}</p>

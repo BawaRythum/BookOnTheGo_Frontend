@@ -1,78 +1,46 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar"; 
-import axios from "axios"; 
+import { getEvent } from "./api"; 
 import "../css/myEvents.css";
 
 export default function MyEvents() {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-    // API call to get my events (commented)
-    /*
-    axios.get("http://localhost:5000/api/events/my", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => setEvents(res.data))
+    getEvent(token)
+      .then((data) => {
+        setEvents(data); 
+        setLoading(false);
+      })
       .catch((err) => {
         console.error("Failed to load events:", err);
+        alert("Failed to load events. Please try again.");
+        setLoading(false);
       });
-    */
-
-    // Demo events for testing
-    setEvents([
-      {
-        id: "evt1",
-        name: "Tech Conference 2025",
-        eventDetails: "A full-day event on AI, tech, and startups.",
-        "date-time": "2025-06-15T10:00",
-        noOfTickets: 80,
-        totalSeats: 100,
-        price: 999,
-        images: "https://via.placeholder.com/600x300"
-      },
-      {
-        id: "evt2",
-        name: "Comedy Night",
-        eventDetails: "Live stand-up comedy with top comedians.",
-        "date-time": "2025-07-01T19:30",
-        noOfTickets: 50,
-        totalSeats: 100,
-        price: 399,
-        images: "https://via.placeholder.com/600x300"
-      }
-    ]);
   }, []);
 
   const handleDelete = (id) => {
-    // const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-    // API delete call (commented)
-    /*
-    axios.delete(`http://localhost:5000/api/events/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    deleteEvent(id, token)
       .then(() => {
-        setEvents(events.filter((e) => e.id !== id));
-        console.log("Deleted:", id);
+        setEvents(events.filter((e) => e.eventId !== id));
+        console.log("Deleted event with id:", id);
       })
       .catch((err) => {
         console.error("Delete failed:", err);
         alert("Failed to delete event.");
       });
-    */
-
-    // Demo: remove from local state
-    setEvents(events.filter((e) => e.id !== id));
-    console.log("Deleted (demo):", id);
   };
+
+  if (loading) {
+    return <p>Loading events...</p>; 
+  }
 
   return (
     <div className="myevents-container">
@@ -82,18 +50,18 @@ export default function MyEvents() {
 
       <div className="event-list">
         {events.map((event) => (
-          <div className="event-card" key={event.id}>
+          <div className="event-card" key={event.eventId}>
             <img src={event.images} alt={event.name} />
             <div className="event-info">
               <h2>{event.name}</h2>
-              <p><strong>Date & Time:</strong> {new Date(event["date-time"]).toLocaleString()}</p>
+              <p><strong>Date & Time:</strong> {new Date(event.date).toLocaleString()}</p>
               <p><strong>Description:</strong> {event.eventDetails}</p>
               <p><strong>Tickets:</strong> {event.noOfTickets} / {event.totalSeats}</p>
               <p><strong>Price:</strong> ${event.price}</p>
-              <button  className="update-btn" onClick={() => navigate(`/update/${event.id}`, { state: event })}>
+              <button className="update-btn" onClick={() => navigate(`/update/${event.eventId}`, { state: event })}>
                 Update
               </button>
-              <button className="delete-btn" onClick={() => handleDelete(event.id)}>
+              <button className="delete-btn" onClick={() => handleDelete(event.eventId)}>
                 Delete
               </button>
             </div>
