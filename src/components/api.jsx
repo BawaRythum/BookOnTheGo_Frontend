@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const VITE_AUTH_API_URL = import.meta.env.VITE_AUTH_API_URL;
 const VITE_EVENT_API_URL = import.meta.env.VITE_EVENT_API_URL;
-
+const VITE_PAYMENT_API_URL = import.meta.env.VITE_PAYMENT_API_URL;
 
 const api = axios.create({
   baseURL: VITE_AUTH_API_URL,
@@ -19,7 +19,14 @@ const eventApi = axios.create({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem('token')}` 
   },
-})
+});
+
+const paymentApi = axios.create({
+  baseURL: VITE_PAYMENT_API_URL, // Dynamic Payment API URL
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 
 export const registerUser = async (userData) => {
@@ -99,6 +106,16 @@ export const bookTicket = async (eventId, numberOfTickets) => {
 export const getEventById = async (eventId) => {
   try {
     const response = await eventApi.get(`/events/${eventId}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+// Payment APIs
+export const processPayment = async (paymentData) => {
+  try {
+    const response = await paymentApi.post('/payment/process', paymentData);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;

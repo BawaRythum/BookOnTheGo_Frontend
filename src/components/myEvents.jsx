@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar"; 
-import { getEvent } from "./api"; 
+import { getEventById } from "./api"; 
 import "../css/myEvents.css";
 
 export default function MyEvents() {
@@ -12,7 +12,7 @@ export default function MyEvents() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    getEvent(token)
+    getEventById(token)
       .then((data) => {
         setEvents(data); 
         setLoading(false);
