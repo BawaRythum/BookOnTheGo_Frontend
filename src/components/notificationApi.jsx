@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const VITE_NOTIFICATION_API_URL = import.meta.env.VITE_NOTIFICATION_API_URL;
+const VITE_NOTIFICATION_SERVICE_PORT = import.meta.env.VITE_NOTIFICATION_SERVICE_PORT;
 
 const notifyApi = axios.create({
-  baseURL: VITE_NOTIFICATION_API_URL,
+  baseURL: `http://localhost:${VITE_NOTIFICATION_SERVICE_PORT}/notify`,
   headers: {
     'Content-Type': 'application/json',
   },
