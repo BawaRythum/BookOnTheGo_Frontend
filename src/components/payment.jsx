@@ -70,7 +70,7 @@ export default function PaymentForm() {
 
         <p><strong>Event:</strong> {name}</p>
         <p><strong>Tickets:</strong> {ticketCount}</p>
-        <p><strong>Total:</strong> ₹{totalAmount}</p>
+        <p><strong>Total:</strong> ${totalAmount}</p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -79,7 +79,7 @@ export default function PaymentForm() {
           </div>
 
           <button type="submit" disabled={isLoading} className="payment-button">
-            {isLoading ? "Processing..." : `Pay ₹${totalAmount}`}
+            {isLoading ? "Processing..." : `Pay $${totalAmount}`}
           </button>
         </form>
 
