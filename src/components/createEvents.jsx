@@ -13,7 +13,6 @@ export default function CreateEvent() {
     date: "",
     totalSeats: "",
     price: "",
-    images: ""
   });
 
   const handleChange = (e) => {
@@ -36,14 +35,13 @@ export default function CreateEvent() {
         eventDate,
         eventTime,
         venue: "TBD",
-        promoImageUrl: formData.images,
         userPhone: "+19022409993",
       };
-
-      navigate("/myevents");
-
       await notifyNewEvent(notificationPayload); 
       console.log("Notification sent:", notificationPayload);
+      navigate("/myevents");
+
+      
     } catch (err) {
       console.error("Event creation failed:", err.response?.data || err.message);
       alert("Failed to create event. Please check your inputs or login again.");

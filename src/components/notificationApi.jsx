@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const VITE_NOTIFICATION_SERVICE_PORT = import.meta.env.VITE_NOTIFICATION_SERVICE_PORT;
-
 const notifyApi = axios.create({
   baseURL: `http://localhost:${VITE_NOTIFICATION_SERVICE_PORT}/notify`,
   headers: {
@@ -29,27 +27,22 @@ export const notifyEventUpdated = async (eventData) => {
   }
 };
 
-// Function to subscribe to event updates
-export const subscribeToUpdates = async (email, token) => {
+// Updated function to subscribe (without token)
+export const subscribeToUpdates = async (email) => {
   try {
-    const response = await notifyApi.get(`/subscribe?email=${email}`, {
-      headers: { Authorization: token },
-    });
+    const response = await notifyApi.get(`/subscribe?email=${encodeURIComponent(email)}`);
     return response.data;
   } catch (error) {
     throw new Error('Error subscribing to updates: ' + error.message);
   }
 };
 
-// Function to unsubscribe from event updates
-export const unsubscribeFromUpdates = async (email, token) => {
+// Updated function to unsubscribe (without token)
+export const unsubscribeFromUpdates = async (email) => {
   try {
-    const response = await notifyApi.get(`/unsubscribe?email=${email}`, {
-      headers: { Authorization: token },
-    });
+    const response = await notifyApi.get(`/unsubscribe?email=${encodeURIComponent(email)}`);
     return response.data;
   } catch (error) {
     throw new Error('Error unsubscribing from updates: ' + error.message);
   }
 };
-
