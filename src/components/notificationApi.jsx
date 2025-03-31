@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const VITE_NOTIFICATION_SERVICE_PORT = 8084;
+
 const notifyApi = axios.create({
   baseURL: `http://localhost:${VITE_NOTIFICATION_SERVICE_PORT}/notify`,
   headers: {
