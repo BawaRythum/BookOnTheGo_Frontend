@@ -14,7 +14,6 @@ export default function UpdateEvent() {
     date: event.date || event["date-time"], 
     totalSeats: event.totalSeats,
     price: event.price || "",
-    images: event.images,
   });
 
   const handleChange = (e) => {
@@ -39,8 +38,6 @@ export default function UpdateEvent() {
         eventDate,
         eventTime,
         venue: "TBD",
-        promoImageUrl: formData.images,
-        userPhone: "+19022409993", // optional/test
       };
 
       await notifyEventUpdated(updatePayload);
