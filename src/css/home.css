@@ -1,7 +1,12 @@
 body {
-  background-color: #0a539c;
   margin: 0;
-  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(to right, #1e3a8a, #1e293b);
+}
+
+.home-wrapper {
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .home-container {
@@ -9,17 +14,15 @@ body {
   margin: 40px auto;
   padding: 30px;
   background-color: #ffffff;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
-  font-family: 'Segoe UI', sans-serif;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .home-container h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-size: 32px;
-  color: #333;
+  color: #1e293b;
 }
 
 .search-bar {
@@ -27,29 +30,38 @@ body {
   max-width: 500px;
   display: block;
   margin: 0 auto 30px;
-  padding: 12px;
+  padding: 12px 16px;
   font-size: 15px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  transition: border 0.2s;
+}
+
+.search-bar:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .home-events {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 30px;
 }
 
 .event-card {
-  border: 1px solid #eee;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  background-color: #fff;
+  background-color: white;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .event-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
 }
 
 .event-card img {
@@ -59,32 +71,49 @@ body {
 }
 
 .event-content {
-  padding: 16px;
+  padding: 20px;
+  flex: 1;
 }
 
 .event-content h2 {
   font-size: 20px;
   margin-bottom: 10px;
-  color: #222;
+  color: #1e293b;
 }
 
 .event-content p {
   font-size: 14px;
   color: #555;
-  margin: 4px 0;
+  margin: 6px 0;
 }
 
 .event-content button {
-  margin-top: 10px;
+  margin-top: 15px;
   padding: 10px 16px;
-  background-color: #000000;
+  background-color: #3b82f6;
   color: white;
   border: none;
+  border-radius: 8px;
   font-size: 14px;
-  border-radius: 6px;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 .event-content button:hover {
-  background-color: #0782d4;
+  background-color: #2563eb;
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .event-content {
+    padding: 16px;
+  }
+
+  .search-bar {
+    width: 90%;
+  }
 }

@@ -1,20 +1,23 @@
 
 import axios from 'axios';
 
+const VITE_AUTH_SERVICE_PORT = 8081;
+const VITE_EVENT_SERVICE_PORT = 8082;
+const VITE_PAYMENT_SERVICE_PORT = 8083;
 
-const VITE_AUTH_SERVICE_PORT = import.meta.env.VITE_AUTH_SERVICE_PORT;
-const VITE_EVENT_SERVICE_PORT = import.meta.env.VITE_EVENT_SERVICE_PORT;
-const VITE_PAYMENT_SERVICE_PORT = import.meta.env.VITE_PAYMENT_SERVICE_PORT;
+// const VITE_AUTH_SERVICE_PORT = import.meta.env.VITE_AUTH_SERVICE_PORT;
+// const VITE_EVENT_SERVICE_PORT = import.meta.env.VITE_EVENT_SERVICE_PORT;
+// const VITE_PAYMENT_SERVICE_PORT = import.meta.env.VITE_PAYMENT_SERVICE_PORT;
 
 const api = axios.create({
-  baseURL: `http://localhost:${VITE_AUTH_SERVICE_PORT}/api/v1/auth/`,
+  baseURL: `http://localhost:${VITE_AUTH_SERVICE_PORT}/api/v1/`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 const eventApi = axios.create({
-  baseURL: `http://localhost:${VITE_EVENT_SERVICE_PORT}/api/v1/events/`,
+  baseURL: `http://localhost:${VITE_EVENT_SERVICE_PORT}/api/v1/`,
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem('token')}` 

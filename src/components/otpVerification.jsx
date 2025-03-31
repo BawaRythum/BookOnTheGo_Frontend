@@ -1,7 +1,7 @@
-// OTPVerification.jsx
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { verifyOtp } from './api';
+import { FaShieldAlt, FaExclamationCircle, FaCheckCircle } from 'react-icons/fa';
 import '../css/otp.css';
 
 export default function OTPVerification() {
@@ -50,10 +50,7 @@ export default function OTPVerification() {
     setIsLoading(true);
 
     try {
-      const response = await verifyOtp({
-        otp: parseInt(otp),
-        email
-      });
+      const response = await verifyOtp({ otp: parseInt(otp), email });
 
       if (response.success) {
         setVerified(true);
@@ -73,7 +70,7 @@ export default function OTPVerification() {
 
   const handleResend = async () => {
     try {
-      // Add resend OTP API call
+      // You can integrate resend OTP logic here
       setCountdown(30);
       setError('');
       setDigits(Array(6).fill(''));
@@ -83,17 +80,15 @@ export default function OTPVerification() {
   };
 
   return (
-    <div className="otp-premium-container">
-      <div className="otp-glass-card">
-        <div className="otp-header">
-          <div className="verification-badge">
-            <i className="fas fa-shield-check"></i>
-          </div>
-          <h1>Secure Verification</h1>
-          <p>Enter the 6-digit code sent to<br/><span>{email}</span></p>
+    <div className="otp-page">
+      <div className="otp-card">
+        <div className="otp-logo">
+          <FaShieldAlt />
         </div>
+        <h2>Verify Your Email</h2>
+        <p className="otp-subtext">Enter the 6-digit code sent to <strong>{email}</strong></p>
 
-        <div className="otp-inputs-container">
+        <div className="otp-inputs">
           {digits.map((digit, index) => (
             <input
               key={index}
@@ -109,39 +104,30 @@ export default function OTPVerification() {
         </div>
 
         {error && (
-          <div className="otp-error-message">
-            <i className="fas fa-exclamation-circle"></i>
-            {error}
+          <div className="otp-error">
+            <FaExclamationCircle /> {error}
           </div>
         )}
 
-        <div className="otp-action-bar">
+        <div className="otp-actions">
           <button
-            type="button"
+            className="resend-btn"
             onClick={handleResend}
             disabled={countdown > 0}
-            className="resend-button"
           >
             {countdown > 0 ? `Resend in ${countdown}s` : 'Resend Code'}
           </button>
-          
+
           <button
-            type="button"
-            disabled={isLoading || digits.some(d => d === '')}
-            className="verify-button"
+            className="verify-btn"
             onClick={() => handleSubmit(digits.join(''))}
+            disabled={isLoading || digits.some(d => d === '')}
           >
-            {verified ? (
-              <i className="fas fa-check"></i>
-            ) : isLoading ? (
-              <div className="dual-ring-spinner"></div>
-            ) : (
-              'Verify Now'
-            )}
+            {verified ? <FaCheckCircle /> : isLoading ? 'Verifying...' : 'Verify'}
           </button>
         </div>
 
-        <div className="otp-decorative-line"></div>
+        <p className="otp-footer">Back to <span onClick={() => navigate("/")}>Login</span></p>
       </div>
     </div>
   );

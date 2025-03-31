@@ -13,6 +13,7 @@ export default function CreateEvent() {
     date: "",
     totalSeats: "",
     price: "",
+    images: ""
   });
 
   const handleChange = (e) => {
@@ -35,6 +36,7 @@ export default function CreateEvent() {
         eventDate,
         eventTime,
         venue: "TBD",
+        promoImageUrl: formData.images,
         userPhone: "+19022409993",
       };
       await notifyNewEvent(notificationPayload); 

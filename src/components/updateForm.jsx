@@ -14,6 +14,7 @@ export default function UpdateEvent() {
     date: event.date || event["date-time"], 
     totalSeats: event.totalSeats,
     price: event.price || "",
+    images: event.images,
   });
 
   const handleChange = (e) => {
@@ -37,6 +38,7 @@ export default function UpdateEvent() {
         eventName: formData.name,
         eventDate,
         eventTime,
+        promoImageUrl: formData.images,
         venue: "TBD",
       };
 
