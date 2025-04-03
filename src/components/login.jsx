@@ -40,6 +40,8 @@ export default function Login() {
       localStorage.setItem("token", responseData.accessToken);
       localStorage.setItem("refreshToken", responseData.refreshToken);
       localStorage.setItem("role", responseData.role);
+      localStorage.setItem("token", responseData.accessToken);
+localStorage.setItem("email", responseData.email);
 
       // Redirect to dashboard or home page
       navigate("/home");

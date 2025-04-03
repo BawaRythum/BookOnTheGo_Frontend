@@ -1,30 +1,24 @@
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(to right, #1e3a8a, #1e293b);
-}
-
-.home-wrapper {
-  min-height: 100vh;
-  padding: 20px;
-}
+/* General home container styles */
 
 .home-container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 40px auto;
   padding: 30px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+  
 }
 
-.home-container h1 {
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 32px;
-  color: #1e293b;
 }
 
+/* Search bar styling */
 .search-bar {
   width: 100%;
   max-width: 500px;
@@ -39,29 +33,30 @@ body {
 }
 
 .search-bar:focus {
-  border-color: #3b82f6;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  border-color: #007bff;
 }
 
+/* Event card container styles */
 .home-events {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 .event-card {
-  border-radius: 12px;
+  width: 320px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  background-color: white;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-  display: flex;
-  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
 .event-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
 }
 
 .event-card img {
@@ -71,49 +66,41 @@ body {
 }
 
 .event-content {
-  padding: 20px;
-  flex: 1;
+  padding: 15px;
 }
 
 .event-content h2 {
-  font-size: 20px;
+  font-size: 1.2rem;
+  color: #333;
   margin-bottom: 10px;
-  color: #1e293b;
 }
 
 .event-content p {
-  font-size: 14px;
+  font-size: 1rem;
   color: #555;
-  margin: 6px 0;
+  margin-bottom: 5px;
 }
 
 .event-content button {
-  margin-top: 15px;
-  padding: 10px 16px;
-  background-color: #3b82f6;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .event-content button:hover {
-  background-color: #2563eb;
+  background-color: #0056b3;
 }
 
-@media (max-width: 768px) {
-  .home-container {
-    margin: 20px;
-    padding: 20px;
-  }
-
-  .event-content {
-    padding: 16px;
-  }
-
-  .search-bar {
-    width: 90%;
-  }
+/* Error message styling */
+.error-message {
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  text-align: center;
 }

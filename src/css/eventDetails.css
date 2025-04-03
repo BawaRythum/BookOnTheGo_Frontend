@@ -1,93 +1,112 @@
+/* Event details container background */
 .event-details {
-    background-color: #0a539c;
-    min-height: 100vh;
-    padding: 40px 20px;
-  }
-  
+  background-color: #6a11cb; /* Consistent background color */
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient for a smooth look */
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* Event card layout */
+.event-details__card {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #ffffff; /* White background for the card */
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Image inside the event card */
+.event-details__image {
+  width: 100%;
+  height: 250px; /* Set a fixed height */
+  object-fit: cover;
+}
+
+/* Event details info section */
+.event-details__info {
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9; /* Light background for readability */
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Title of the event */
+.event-details__title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #1e293b; /* Dark color for text */
+  text-align: center;
+}
+
+/* Text for event details */
+.event-details__text {
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #444; /* Slightly darker text for contrast */
+}
+
+/* Label for input fields */
+.event-details__label {
+  display: block;
+  margin-top: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Input fields */
+.event-details__input {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Button for proceeding to payment */
+.event-details__button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745; /* Green color */
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Button hover effect */
+.event-details__button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Loading text while fetching event data */
+.event-details-loading {
+  text-align: center;
+  margin-top: 60px;
+  font-size: 18px;
+  color: #777;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
   .event-details__card {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  
-  .event-details__image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  
-  .event-details__info {
-    padding: 30px;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  .event-details__title {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #000000;
-    text-align: center;
-  }
-  
-  .event-details__text {
-    margin-bottom: 10px;
-    font-size: 15px;
-    color: #444;
-  }
-  
-  .event-details__label {
-    display: block;
-    margin-top: 20px;
-    font-weight: 500;
-    color: #333;
-  }
-  
-  .event-details__input {
-    width: 100%;
-    padding: 10px;
-    font-size: 15px;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
-  
-  .event-details__button {
-    width: 100%;
-    padding: 12px;
-    background-color: #28a745;
-    color: white;
-    font-size: 15px;
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    border-radius: 0;
+    box-shadow: none;
   }
-  
-  .event-details__button:hover {
-    background-color: #218838;
+
+  .event-details__info {
+    padding: 20px;
   }
-  
-  .event-details-loading {
-    text-align: center;
-    margin-top: 60px;
-    font-size: 18px;
-    color: #777;
+
+  .event-details__button {
+    padding: 10px; /* Adjust button padding for mobile */
   }
-  
-  @media (max-width: 768px) {
-    .event-details__card {
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-    }
-  
-    .event-details__info {
-      padding: 20px;
-    }
-  }
+}

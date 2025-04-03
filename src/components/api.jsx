@@ -20,7 +20,7 @@ const eventApi = axios.create({
   baseURL: `http://localhost:${VITE_EVENT_SERVICE_PORT}/api/v1/`,
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('token')}` 
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
   },
 });
 
@@ -30,7 +30,6 @@ const paymentApi = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
 
 export const registerUser = async (userData) => {
   try {
@@ -66,7 +65,6 @@ export const loginUser = async (credentials) => {
   }
 };
 
-// Event & Booking Endpoints
 export const createEvent = async (eventData) => {
   try {
     const response = await eventApi.post('/events/create', eventData);
@@ -75,6 +73,7 @@ export const createEvent = async (eventData) => {
     throw error.response?.data || error.message;
   }
 };
+
 
 
 export const updateEvent = async (eventId, eventData) => {
@@ -115,10 +114,37 @@ export const getEventById = async (eventId) => {
   }
 };
 
-// Payment APIs
+
+export const getUserDetails = async () => {
+  const token = localStorage.getItem("token");
+  return await api.get("/user/details", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const updateUserDetails = async (data) => {
+  const token = localStorage.getItem("token");
+  return await api.put("/user/update", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+// Get events created by the logged-in user
+export const getMyEvents = async () => {
+  try {
+    const response = await eventApi.get('/events/myevents');
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
 export const processPayment = async (paymentData) => {
   try {
-    const response = await paymentApi.post('/payment/process', paymentData);
+    const response = await paymentApi.post('/process', paymentData);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;

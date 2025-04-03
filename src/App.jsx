@@ -5,7 +5,7 @@ import Payment from "./components/payment";
 import MyEvents from "./components/myEvents";
 import CreateEvent from "./components/createEvents";
 import Home from "./components/home";
-import Details from "./components/eventDetails";
+import EventDetails from "./components/eventDetails";
 import Update from "./components/updateForm";
 import OTPVerification from "./components/otpVerification";
 import UnsubscribePage from "./components/UnsubscribePage"; 
@@ -20,11 +20,12 @@ function App() {
         <Route path="/myEvents" element={<MyEvents />} />
         <Route path="/create" element={<CreateEvent />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/details/:id" element={<Details />} />
+        <Route path="/events/:eventId" element={<EventDetails />} />
         <Route path="/update/:id" element={<Update />} />
         <Route path="/otp-verification" element={<OTPVerification />} />
         <Route path="/login" element={<Login />} />
         <Route path="/unsubscribe" element={<UnsubscribePage />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
       </Routes>
     </Router>
   );

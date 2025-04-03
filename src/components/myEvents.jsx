@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar"; 
-import { getEventById } from "./api"; 
+import { getMyEvents, deleteEvent } from "./api"; 
 import "../css/myEvents.css";
 
 export default function MyEvents() {
@@ -10,9 +10,7 @@ export default function MyEvents() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    getEventById(token)
+    getMyEvents()
       .then((data) => {
         setEvents(data); 
         setLoading(false);
@@ -25,9 +23,7 @@ export default function MyEvents() {
   }, []);
 
   const handleDelete = (id) => {
-    const token = localStorage.getItem("token");
-
-    deleteEvent(id, token)
+    deleteEvent(id)
       .then(() => {
         setEvents(events.filter((e) => e.eventId !== id));
         console.log("Deleted event with id:", id);
@@ -38,39 +34,41 @@ export default function MyEvents() {
       });
   };
 
-  if (loading) {
-    return <p>Loading events...</p>; 
-  }
+  if (loading) return <p>Loading events...</p>;
 
   return (
-    <div className="myevents-container">
+    <div className="shared-background">
       <Navbar />
+      <div className="myevents-container">
+        {/* Button placed after the heading for better visibility */}
+        <div className="center-button">
+          <button className="add-event-btn" onClick={() => navigate("/create")}>Add New Event</button>
+        </div>
 
-      <h1>My Events</h1>
+        <h1>My Events</h1>
 
-      <div className="event-list">
-        {events.map((event) => (
-          <div className="event-card" key={event.eventId}>
-            <img src={event.images} alt={event.name} />
-            <div className="event-info">
-              <h2>{event.name}</h2>
-              <p><strong>Date & Time:</strong> {new Date(event.date).toLocaleString()}</p>
-              <p><strong>Description:</strong> {event.eventDetails}</p>
-              <p><strong>Tickets:</strong> {event.noOfTickets} / {event.totalSeats}</p>
-              <p><strong>Price:</strong> ${event.price}</p>
-              <button className="update-btn" onClick={() => navigate(`/update/${event.eventId}`, { state: event })}>
-                Update
-              </button>
-              <button className="delete-btn" onClick={() => handleDelete(event.eventId)}>
-                Delete
-              </button>
+        <div className="event-list">
+          {events.map((event) => (
+            <div className="event-card" key={event.eventId}>
+              <img src={event.images} alt={event.name} />
+              <div className="event-info">
+                <h2>{event.name}</h2>
+                <p><strong>Date & Time:</strong> {new Date(event.date).toLocaleString()}</p>
+                <p><strong>Description:</strong> {event.eventDetails}</p>
+                <p><strong>Tickets:</strong> {event.noOfTickets} / {event.totalSeats}</p>
+                <p><strong>Price:</strong> ${event.price}</p>
+                <div className="button-row">
+                  <button className="update-btn" onClick={() => navigate(`/update/${event.eventId}`, { state: event })}>
+                    Update
+                  </button>
+                  <button className="delete-btn" onClick={() => handleDelete(event.eventId)}>
+                    Delete
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="center-button">
-        <button onClick={() => navigate("/create")}>Add New Event</button>
+          ))}
+        </div>
       </div>
     </div>
   );

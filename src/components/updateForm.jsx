@@ -1,8 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { updateEvent } from "./api"; 
-import { notifyEventUpdated } from "./notificationApi"; 
+import { updateEvent } from "./api";
+import { notifyEventUpdated } from "./notificationApi";
 import "../css/createEvent.css";
+import Navbar from "./navbar";
+import {
+  FaCalendarAlt,
+  FaDollarSign,
+  FaImage,
+  FaInfoCircle,
+  FaUserFriends,
+  FaTicketAlt
+} from "react-icons/fa";
 
 export default function UpdateEvent() {
   const { state: event } = useLocation();
@@ -11,10 +20,10 @@ export default function UpdateEvent() {
   const [formData, setFormData] = useState({
     name: event.name,
     eventDetails: event.eventDetails,
-    date: event.date || event["date-time"], 
     totalSeats: event.totalSeats,
     price: event.price || "",
     images: event.images,
+    date: event.date,
   });
 
   const handleChange = (e) => {
@@ -53,56 +62,101 @@ export default function UpdateEvent() {
   };
 
   return (
-    <div className="createevent-container">
-      <h1>Update Event</h1>
-      <form onSubmit={handleSubmit} className="createevent-form">
-        <input
-          name="name"
-          placeholder="Event Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <textarea
-          name="eventDetails"
-          placeholder="Event Description"
-          value={formData.eventDetails}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="datetime-local"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="totalSeats"
-          placeholder="Total Seats"
-          value={formData.totalSeats}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          placeholder="Ticket Price ($)"
-          value={formData.price}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="images"
-          placeholder="Image URL"
-          value={formData.images}
-          onChange={handleChange}
-          required
-        />
+    <div>
+            <Navbar />
+
+    <div className="auth-container">
+
+      <form onSubmit={handleSubmit} className="auth-form">
+        <h1 className="logo">🎉 Update Event</h1>
+
+        <div className="input-group">
+        <FaTicketAlt className="input-icon" />
+          <input
+            name="name"
+            placeholder="Event Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+        </div>
+
+        <div className="input-group">
+        <FaInfoCircle className="input-icon" />
+          <textarea
+            name="eventDetails"
+            placeholder="Event Description"
+            value={formData.eventDetails}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+        </div>
+
+        <div className="input-group">
+        <FaCalendarAlt className="input-icon" />
+          <input
+            type="datetime-local"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+            className="form-input custom-datetime-picker"
+          />
+        </div>
+
+        <div className="input-group">
+        <FaUserFriends className="input-icon" />
+          <input
+            type="number"
+            name="totalSeats"
+            placeholder="Total Seats"
+            value={formData.totalSeats}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+        </div>
+
+        <div className="input-group">
+        <FaDollarSign className="input-icon" />
+          <input
+            type="number"
+            name="price"
+            placeholder="Ticket Price ($)"
+            value={formData.price}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+        </div>
+
+        <div className="input-group">
+        <FaImage className="input-icon" />
+          <input
+            type="text"
+            name="images"
+            placeholder="Event Image URL"
+            value={formData.images}
+            onChange={handleChange}
+            required
+            className="form-input"
+          />
+        </div>
+
+        {formData.images && (
+          <img
+            src={formData.images}
+            alt="Preview"
+            className="event-img-preview"
+            onError={(e) => (e.target.style.display = "none")}
+          />
+        )}
+
         <button type="submit">Submit</button>
       </form>
+    </div>
     </div>
   );
 }

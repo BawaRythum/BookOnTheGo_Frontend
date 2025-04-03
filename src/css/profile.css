@@ -1,0 +1,142 @@
+/* General Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: url("https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1470&q=80") no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Wrapper */
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Card */
+.profile-card {
+  background-color: white;
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+/* Heading */
+.profile-heading {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #222;
+  text-align: center;
+}
+
+/* Profile Image */
+.profile-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 20px auto;
+  border: 2px solid #007bff;
+}
+
+/* Form Labels */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-info label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 16px;
+}
+
+/* Inputs */
+.profile-input {
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.2s ease;
+}
+
+.profile-input::placeholder {
+  color: #999;
+}
+
+.profile-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.profile-input:disabled {
+  background-color: #f1f1f1;
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* Textarea */
+textarea.profile-input {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Buttons */
+.profile-actions {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.edit-btn,
+.save-btn,
+.cancel-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin: 0 8px;
+  min-width: 120px;
+}
+
+.edit-btn,
+.save-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-btn:hover,
+.save-btn:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #c53030;
+}
+
+/* Loading */
+.loading-text {
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding-top: 2rem;
+}

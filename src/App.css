@@ -1,0 +1,55 @@
+/* Global background for the entire app */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Same as in the Create Event page */
+    min-height: 100vh;
+  }
+  
+  /* Ensure this background is applied everywhere */
+  .home-container, .auth-container, .event-card, .myevents-container {
+    background: transparent;
+  }
+  
+  .home-container {
+    background-color: transparent; /* Keep it transparent for uniformity */
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-bar {
+    background-color: #f9f9f9; /* Maintain form input styling */
+    border: 1px solid #ccc;
+  }
+  
+  /* Event cards in home */
+  .event-card {
+    background-color: white;  /* White background for event cards */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);  /* Add subtle shadow for cards */
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .event-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .event-content {
+    padding: 20px;
+    flex: 1;
+  }
+  
+  .event-content button {
+    background-color: #3b82f6;
+  }
+  
+  .event-content button:hover {
+    background-color: #2563eb;
+  }
+  

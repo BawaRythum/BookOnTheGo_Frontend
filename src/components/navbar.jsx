@@ -1,12 +1,20 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "../css/nav.css";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const [role, setRole] = useState(null);
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    setRole(storedRole); 
+  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+    localStorage.removeItem("token");  
+    localStorage.removeItem("role");   
+    navigate("/"); 
   };
 
   return (
@@ -17,8 +25,12 @@ export default function Navbar() {
 
       <div className="navbar-right">
         <NavLink to="/home" className="nav-link">Home</NavLink>
-        <NavLink to="/myevents" className="nav-link">My Events</NavLink>
-        <button onClick={handleLogout} className="logout-button">Logout</button>
+
+        {role === "Organizer" && (
+          <NavLink to="/myevents" className="nav-link">My Events</NavLink>
+        )}
+
+        <button onClick={handleLogout} className="logout-button">LogOut</button>
       </div>
     </nav>
   );
