@@ -29,7 +29,6 @@ export const notifyEventUpdated = async (eventData) => {
   }
 };
 
-// Updated function to subscribe (without token)
 export const subscribeToUpdates = async (email) => {
   try {
     const response = await notifyApi.get(`/subscribe?email=${encodeURIComponent(email)}`);
@@ -39,7 +38,6 @@ export const subscribeToUpdates = async (email) => {
   }
 };
 
-// Updated function to unsubscribe (without token)
 export const unsubscribeFromUpdates = async (email) => {
   try {
     const response = await notifyApi.get(`/unsubscribe?email=${encodeURIComponent(email)}`);
